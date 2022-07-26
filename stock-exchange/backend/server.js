@@ -8,7 +8,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-const PORT = 5000;
+const port = 4000;
 
 app.use('/', express.static(path.resolve(__dirname, '../public')));
 app.get('/', (req,res) => {
@@ -22,16 +22,16 @@ mongoose
     .connect(
         'mongodb+srv://johnlesoloproject:NhanMa9318006@cluster0.mlmgp.mongodb.net/?retryWrites=true&w=majority',
         {
-            useNewUrlParse: true,
-            useUnifiedTopology: true,
+            useNewUrlParser: true, //check for typo in the beginning
+            useUnifiedTopology: true, //check for typo in the beginning
             dbName: 'StockExchangeDatabase',
         } 
     )
     .then(() => {
-        console.log(`Now running from ${PORT} and successfully connect to DB`)
+        console.log(`Now running from ${port} and successfully connect to DB`)
     })
     .catch((error) => {
-        console.log(`error boosting up ${PORT} Database`)
+        console.log(`error boosting up ${port} Database`)
     });
 
 
@@ -45,7 +45,7 @@ mongoose
 
 
 
-
+    app.use((req, res) => res.sendStatus(404));
 
     //global error handle
 
@@ -63,6 +63,6 @@ mongoose
 
 
     //Trigger when connecting to the database
-    app.use(PORT, () => {
-        console.log(`Server is running on port: ${PORT}`)
+    app.use(port, () => {
+        console.log(`Server is running on port: ${port}`)
     });
